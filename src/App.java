@@ -6,11 +6,17 @@ public class App {
     static double vuxen_plats = 299.90;
     static double barn_plats = 149.90;
     static double vinst = 0;
+    static int lediga_platser = 0;
     //static String[] pasagerare = {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"};
-    static int[] pasagerare = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
+    static int[] pasagerare = new int [21];
     public static void main(String[] args) throws Exception {
-        //platser();
-        meny();
+        platser();
+        /* 
+        for (int i = 0; i < pasagerare.length; i++) {
+            System.out.println("plats: "+i+" har värdet "+pasagerare[i]);
+        }
+        */
+        //meny();
 
     }
 
@@ -32,11 +38,14 @@ public class App {
             Bokning();
             break;
             case 2:
-            platser();
+           // platser();
+            Lediga_platser();
             meny();
             break;
             case 3:
-            //
+            //Lediga_platser();
+            Vinst_berakning();
+            meny();
             break;
             default : 
             break;
@@ -46,9 +55,19 @@ public class App {
 
     static void platser() throws Exception{
 
-        //pasagerare[0]= 0;
+ 
+        for (int i = 1; i < pasagerare.length; i++) {
+            //System.out.println("plats "+i+" har värdet "+pasagerare[i]);
 
+            if (pasagerare[i]<=20) {
+                System.out.println("|"+i+"|");
+            } else if(pasagerare[i]>20){
+                System.out.println("|X |");
+            }
+        }
         
+
+        /* 
         for (int i = 0; i < pasagerare.length; i++) {
             if(pasagerare[i]<=20){
                 System.out.println(pasagerare[i]+" är ledig");
@@ -57,7 +76,7 @@ public class App {
             
 
         }
-
+*/
         System.out.println("|1 |"+"|2 | "+" |3 |"+"|4 |");
         System.out.println("|5 |"+"|6 | "+" |7 |"+"|8 |");
         System.out.println("|9 |"+"|10| "+" |11|"+"|12|");
@@ -88,7 +107,7 @@ public class App {
         System.out.println("Är "+persnr+" rätt personnummer?");
         System.out.println(" Y  |  N  ");
         String sakerhet = tangentbord.nextLine();
-        if (sakerhet.equalsIgnoreCase  ("N")) {
+        if (sakerhet.equalsIgnoreCase("n")) {
             Thread.sleep(500);
             System.out.println("Ok, försök igen");
             Bokning();
@@ -111,35 +130,21 @@ public class App {
             Thread.sleep(750);
             System.out.println("Dessa plattser är lediga:");
             Thread.sleep(750);
-            platser();
+            //platser();
+            Lediga_platser();
             /* 
-            pasagerare[0]=0;
-            pasagerare[1]=0;
-            pasagerare[2]=0;
-            pasagerare[3]=0;
-            pasagerare[4]=0;
-            pasagerare[5]=0;
-            pasagerare[6]=0;
-            pasagerare[7]=0;
-            pasagerare[8]=0;
-            pasagerare[9]=0;
-            pasagerare[10]=0;
-            pasagerare[11]=0;
-            pasagerare[12]=0;
-            pasagerare[13]=0;
-            pasagerare[14]=0;
-            pasagerare[15]=0;
-            pasagerare[16]=0;
-            pasagerare[17]=0;
-            pasagerare[18]=0;
-            pasagerare[19]=0;
+            for (int i = 1; i < pasagerare.length; i++) {
+                if (pasagerare[i]==0) {
+                    System.out.println("plats "+i+" har värdet "+pasagerare[i]);
+                }
+                //System.out.println("plats "+i+" har värdet "+pasagerare[i]);
+            }
             */
             Thread.sleep(500);
             System.out.println("Vilken platts vill du boka?");
             int plats_bokning = tangentbord.nextInt();
             System.out.println("Du valde plats "+plats_bokning);
             Thread.sleep(750);
-            plats_bokning=plats_bokning-1;
             pasagerare[plats_bokning]=persnr;
             System.out.println("Din plats är "+pasagerare[plats_bokning]);
             Thread.sleep(750);
@@ -149,4 +154,24 @@ public class App {
 
         }
     }
+    public static void Lediga_platser() throws Exception {
+        lediga_platser=0;
+        for (int i = 1; i < pasagerare.length; i++) {
+            if (pasagerare[i]==0) {
+                lediga_platser = lediga_platser+1;
+                System.out.println("plats "+i+" har värdet "+pasagerare[i]);
+            }
+            else if (pasagerare[i]!=0) {
+                System.out.println("plats "+i+" är bokad");
+                
+            }
+    }
+    System.out.println("Lediga platser är "+lediga_platser);
+}
+
+        static void Vinst_berakning() throws Exception{
+            System.out.println("Har tjänat "+vinst+"kr");
+
+}
+
 }
