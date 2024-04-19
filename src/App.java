@@ -10,13 +10,13 @@ public class App {
     //static String[] pasagerare = {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"};
     static int[] pasagerare = new int [21];
     public static void main(String[] args) throws Exception {
-        platser();
+        //platser();
         /* 
         for (int i = 0; i < pasagerare.length; i++) {
             System.out.println("plats: "+i+" har värdet "+pasagerare[i]);
         }
         */
-        //meny();
+        meny();
 
     }
 
@@ -38,13 +38,14 @@ public class App {
             Bokning();
             break;
             case 2:
-           // platser();
-            Lediga_platser();
+            platser();
+            //Lediga_platser();
             meny();
             break;
             case 3:
             //Lediga_platser();
             Vinst_berakning();
+            //platser();
             meny();
             break;
             default : 
@@ -54,18 +55,56 @@ public class App {
     }
 
     static void platser() throws Exception{
+        int counter=1;
 
  
         for (int i = 1; i < pasagerare.length; i++) {
             //System.out.println("plats "+i+" har värdet "+pasagerare[i]);
-
-            if (pasagerare[i]<=20) {
-                System.out.println("|"+i+"|");
-            } else if(pasagerare[i]>20){
-                System.out.println("|X |");
+            
+            
+            if (pasagerare[i]<=20 && i<=9 ) {
+                System.out.print("|"+i+" | ");
+                if (counter < 4){
+                    counter++;
+                    } else{
+                        System.out.println();
+                        counter=1;
+                    }
+            } else if (pasagerare[i]<=20 && i>9){
+                System.out.print("|"+i+"| ");
+                if (counter < 4){
+                    counter++;
+                    } else{
+                        System.out.println();
+                        counter=1;
+                    }
+            }else if(pasagerare[i]>20){
+                System.out.print("|X | ");
+                if (counter < 4){
+                    counter++;
+                    } else{
+                        System.out.println();
+                        counter=1;
+                    }
             }
+            
+            
+            //System.out.println("|"+i+" |"+"|"+pasagerare[i+1]+" | "+" |"+pasagerare[i+2]+" |"+"|"+pasagerare[i+3]+" |");
         }
+        System.out.println("");
         
+/* 
+        for (int i = 1; i < pasagerare.length; i++) {
+
+        }
+
+        /* 
+        System.out.println("|"+pasagerare[0]+" |"+"|"+pasagerare[1]+" | "+" |"+pasagerare[2]+" |"+"|"+pasagerare[3]+" |");
+        System.out.println("|"+pasagerare[4]+" |"+"|"+pasagerare[5]+" | "+" |"+pasagerare[6]+" |"+"|"+pasagerare[7]+" |");
+        System.out.println("|"+pasagerare[8]+" |"+"|"+pasagerare[9]+"| "+" |"+pasagerare[10]+"|"+"|"+pasagerare[11]+"|");
+        System.out.println("|"+pasagerare[12]+"|"+"|"+pasagerare[13]+"| "+" |"+pasagerare[14]+"|"+"|"+pasagerare[15]+"|");
+        System.out.println("|"+pasagerare[16]+"|"+"|"+pasagerare[17]+"| "+" |"+pasagerare[18]+"|"+"|"+pasagerare[19]+"|");
+        */
 
         /* 
         for (int i = 0; i < pasagerare.length; i++) {
@@ -76,21 +115,13 @@ public class App {
             
 
         }
-*/
+
         System.out.println("|1 |"+"|2 | "+" |3 |"+"|4 |");
         System.out.println("|5 |"+"|6 | "+" |7 |"+"|8 |");
         System.out.println("|9 |"+"|10| "+" |11|"+"|12|");
         System.out.println("|13|"+"|14| "+" |15|"+"|16|");
         System.out.println("|17|"+"|18| "+" |19|"+"|20|");
-
-        /* 
-        System.out.println("|"+pasagerare[0]+" |"+"|"+pasagerare[1]+" | "+" |"+pasagerare[2]+" |"+"|"+pasagerare[3]+" |");
-        System.out.println("|"+pasagerare[4]+" |"+"|"+pasagerare[5]+" | "+" |"+pasagerare[6]+" |"+"|"+pasagerare[7]+" |");
-        System.out.println("|"+pasagerare[8]+" |"+"|"+pasagerare[9]+"| "+" |"+pasagerare[10]+"|"+"|"+pasagerare[11]+"|");
-        System.out.println("|"+pasagerare[12]+"|"+"|"+pasagerare[13]+"| "+" |"+pasagerare[14]+"|"+"|"+pasagerare[15]+"|");
-        System.out.println("|"+pasagerare[16]+"|"+"|"+pasagerare[17]+"| "+" |"+pasagerare[18]+"|"+"|"+pasagerare[19]+"|");
         */
-        
         
     }
 
@@ -102,6 +133,12 @@ public class App {
         if (persnr < 10000000) {
             Thread.sleep(500);
             System.out.println("Personnummret måste inehålla 8 siffror");
+            Bokning();
+        } else if (persnr > 20240419){
+            Thread.sleep(500);
+            System.out.println("Du är för ung för att boka bussplats");
+            Thread.sleep(500);
+            System.out.println("Försök igen");
             Bokning();
         } else {
         System.out.println("Är "+persnr+" rätt personnummer?");
@@ -130,8 +167,8 @@ public class App {
             Thread.sleep(750);
             System.out.println("Dessa plattser är lediga:");
             Thread.sleep(750);
-            //platser();
-            Lediga_platser();
+            platser();
+            //Lediga_platser();
             /* 
             for (int i = 1; i < pasagerare.length; i++) {
                 if (pasagerare[i]==0) {
