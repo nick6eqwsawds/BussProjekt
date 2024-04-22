@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class App {
@@ -21,6 +20,7 @@ public class App {
     }
 
     public static void meny() throws Exception {
+        int menyval = 0;
         System.out.println("Välkommen till Buss Boknings sidan!");
         Thread.sleep(500);
         System.out.println("Här är dina olika val:");
@@ -31,7 +31,18 @@ public class App {
         Thread.sleep(250);
         System.out.println("3. Beräkna vinst");
         Thread.sleep(250);
-        int menyval = tangentbord.nextInt();
+        while (true) {
+            try{
+                menyval = tangentbord.nextInt();
+                break;
+            }catch(Exception e){
+                tangentbord.nextLine();
+                System.out.println("Skriv in ett av valen 1-3");
+                Thread.sleep(500);
+                meny();
+              }
+        }
+        //int menyval = tangentbord.nextInt();
 
         switch (menyval) {
             case 1:
@@ -49,6 +60,7 @@ public class App {
             meny();
             break;
             default : 
+            meny();
             break;
         }
 
@@ -126,15 +138,29 @@ public class App {
     }
 
     public static void Bokning() throws Exception {
+        int persnr = 0;
         Thread.sleep(500);
         System.out.println("Vänligen skriv in personnummer nedan");
         Thread.sleep(500);
-        int persnr = tangentbord.nextInt();
+        //int persnr = tangentbord.nextInt();
+        while (true) {
+            try{
+                persnr = tangentbord.nextInt();
+                break;
+            }catch(Exception e){
+                tangentbord.nextLine();
+                System.out.println("Skriv in personnummer årtal/månad/dag");
+                Thread.sleep(500);
+                System.out.println("Exempel: 20061207");
+                //meny();
+                Bokning();
+              }
+        }
         if (persnr < 10000000) {
             Thread.sleep(500);
             System.out.println("Personnummret måste inehålla 8 siffror");
             Bokning();
-        } else if (persnr > 20240419){
+        } else if (persnr > 20240422){
             Thread.sleep(500);
             System.out.println("Du är för ung för att boka bussplats");
             Thread.sleep(500);
@@ -143,12 +169,13 @@ public class App {
         } else {
         System.out.println("Är "+persnr+" rätt personnummer?");
         System.out.println(" Y  |  N  ");
+        tangentbord.nextLine();
         String sakerhet = tangentbord.nextLine();
-        if (sakerhet.equalsIgnoreCase("n")) {
+        if (sakerhet.equalsIgnoreCase("N")) {
             Thread.sleep(500);
             System.out.println("Ok, försök igen");
             Bokning();
-        } else {
+        } else if (sakerhet.equalsIgnoreCase("Y")) {
             int person_alder = 20240408-persnr;
             System.out.println(person_alder);
             if (person_alder >= 180000) {
@@ -177,9 +204,27 @@ public class App {
                 //System.out.println("plats "+i+" har värdet "+pasagerare[i]);
             }
             */
+            int plats_bokning = 0;
             Thread.sleep(500);
             System.out.println("Vilken platts vill du boka?");
-            int plats_bokning = tangentbord.nextInt();
+            while (true) {
+                try{
+                    plats_bokning = tangentbord.nextInt();
+                    break;
+                }catch(Exception e){
+                    tangentbord.nextLine();
+                    System.out.println("Välj en av de lediga platserna");
+                    Thread.sleep(500);
+                 
+                    //meny();
+                    //Bokning();
+                  }
+                }
+            
+            if (pasagerare[plats_bokning]>20) {
+                Thread.sleep(750);
+                System.out.println("Plattsen är bokad, välj en annan");
+            } else if (pasagerare[plats_bokning]<20){
             System.out.println("Du valde plats "+plats_bokning);
             Thread.sleep(750);
             pasagerare[plats_bokning]=persnr;
@@ -187,6 +232,11 @@ public class App {
             Thread.sleep(750);
 
             meny();
+            }
+        } else {
+            Thread.sleep(750);
+            System.out.println("Svara y eller n");
+            Bokning();
         }
 
         }
