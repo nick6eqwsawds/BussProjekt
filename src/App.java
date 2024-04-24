@@ -31,6 +31,8 @@ public class App {
         Thread.sleep(250);
         System.out.println("3. Beräkna vinst");
         Thread.sleep(250);
+        System.out.println("4. Hitta plats");
+        Thread.sleep(250);
         while (true) {
             try{
                 menyval = tangentbord.nextInt();
@@ -57,6 +59,10 @@ public class App {
             //Lediga_platser();
             Vinst_berakning();
             //platser();
+            meny();
+            break;
+            case 4:
+            Hitta_plats();
             meny();
             break;
             default : 
@@ -160,7 +166,7 @@ public class App {
             Thread.sleep(500);
             System.out.println("Personnummret måste inehålla 8 siffror");
             Bokning();
-        } else if (persnr > 20240422){
+        } else if (persnr > 20240424){
             Thread.sleep(500);
             System.out.println("Du är för ung för att boka bussplats");
             Thread.sleep(500);
@@ -176,7 +182,7 @@ public class App {
             System.out.println("Ok, försök igen");
             Bokning();
         } else if (sakerhet.equalsIgnoreCase("Y")) {
-            int person_alder = 20240408-persnr;
+            int person_alder = 20240424-persnr;
             System.out.println(person_alder);
             if (person_alder >= 180000) {
                 Thread.sleep(500);
@@ -220,10 +226,31 @@ public class App {
                     //Bokning();
                   }
                 }
-            
-            if (pasagerare[plats_bokning]>20) {
+                /* 
+                while (plats_bokning>20) {
+                    try{
+                        plats_bokning = tangentbord.nextInt();
+                        break;
+                    }catch(Exception e){
+                            //tangentbord.nextLine();
+                            System.out.println("Du måste välja en av plattserna 1-20");
+                            Thread.sleep(500);
+                        }
+                    }
+                */
+                
+                if (plats_bokning > 20) {
+                    Thread.sleep(750);
+                    System.out.println("Du måste välja mellan en av plattserna 1-20");
+                    Thread.sleep(750);
+                    System.out.println("Du får försöka igen");
+                    Bokning();
+                } else if (pasagerare[plats_bokning]>20) {
                 Thread.sleep(750);
-                System.out.println("Plattsen är bokad, välj en annan");
+                System.out.println("Plattsen är bokad.");
+                Thread.sleep(750);
+                System.out.println("Försök igen");
+                Bokning();
             } else if (pasagerare[plats_bokning]<20){
             System.out.println("Du valde plats "+plats_bokning);
             Thread.sleep(750);
@@ -241,6 +268,7 @@ public class App {
 
         }
     }
+    
     public static void Lediga_platser() throws Exception {
         lediga_platser=0;
         for (int i = 1; i < pasagerare.length; i++) {
@@ -260,5 +288,21 @@ public class App {
             System.out.println("Har tjänat "+vinst+"kr");
 
 }
+
+    static void Hitta_plats() throws Exception {
+        Thread.sleep(500);
+        System.out.println("skriv in personnummer:");
+        Thread.sleep(500);
+        System.out.println("Exempel: ååååmmdd");
+        int persnr2 = tangentbord.nextInt();
+
+        for (int i = 1; i < pasagerare.length; i++) {
+            if (pasagerare[i]==persnr2) {
+                Thread.sleep(750);
+                System.out.println(i+" är din plats");
+                return;
+            } 
+            }
+    }
 
 }
