@@ -303,6 +303,8 @@ public class App {
                 return;
             } 
             }
+            Thread.sleep(500);
+            System.out.println("Vill du: \n1. Avboka \n2. Behålla plats");
     }
 
 }
