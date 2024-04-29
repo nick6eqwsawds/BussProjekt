@@ -6,6 +6,7 @@ public class App {
     static double barn_plats = 149.90;
     static double vinst = 0;
     static int lediga_platser = 0;
+    static int person_alder = 0;
     //static String[] pasagerare = {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"};
     static int[] pasagerare = new int [21];
     public static void main(String[] args) throws Exception {
@@ -33,6 +34,7 @@ public class App {
         Thread.sleep(250);
         System.out.println("4. Hitta plats");
         Thread.sleep(250);
+        System.out.println("5. Hitta ålder vid platser");
         while (true) {
             try{
                 menyval = tangentbord.nextInt();
@@ -63,6 +65,10 @@ public class App {
             break;
             case 4:
             Hitta_plats();
+            meny();
+            break;
+            case 5:
+            Hitta_alder();
             meny();
             break;
             default : 
@@ -200,6 +206,8 @@ public class App {
             Thread.sleep(750);
             System.out.println("Dessa plattser är lediga:");
             Thread.sleep(750);
+            System.out.println("Platserna längst höger och längst vänster är fönsterplatser och kostar 100kr extra");
+            Thread.sleep(750);
             platser();
             //Lediga_platser();
             /* 
@@ -254,6 +262,17 @@ public class App {
             } else if (pasagerare[plats_bokning]<20){
             System.out.println("Du valde plats "+plats_bokning);
             Thread.sleep(750);
+            int module_fonster = 4;
+            if (plats_bokning+4%module_fonster<=1){
+                Thread.sleep(750);
+                System.out.println("Du har bokat en fönsterplats");
+                Thread.sleep(750);
+                System.out.println("Det kostar 100kr extra");
+                vinst = vinst + 100;
+            } else {
+                Thread.sleep(750);
+                System.out.println("Du har bokat en vanlig plats");
+            }
             pasagerare[plats_bokning]=persnr;
             System.out.println("Din plats är "+pasagerare[plats_bokning]);
             Thread.sleep(750);
@@ -295,19 +314,32 @@ public class App {
         Thread.sleep(500);
         System.out.println("Exempel: ååååmmdd");
         int persnr2 = tangentbord.nextInt();
-
+        int leta_bokning = 0;
         for (int i = 1; i < pasagerare.length; i++) {
             if (pasagerare[i]==persnr2) {
                 Thread.sleep(750);
                 System.out.println(i+" är din plats");
+                leta_bokning+=1;
                 //return;
             } 
+            }
+            if (leta_bokning==0) {
+                Thread.sleep(750);
+                System.out.println("Det finns ingen plats med det personnummret.");
+                Thread.sleep(750);
+                System.out.println("Försök igen om du vill");
+                return;
             }
             tangentbord.nextLine();
             Thread.sleep(500);
             System.out.println("Vill du: \n1. Avboka \n2. Behålla plats");
             int avboka = tangentbord.nextInt();
             if (avboka==1){
+                if (person_alder<18000000) {
+                    vinst = vinst - barn_plats;
+                } else if (person_alder>=18000000) {
+                    vinst = vinst - vuxen_plats;
+                }
                 System.out.println("Ok din plats är nu avbokad");
                 for (int i = 1; i < pasagerare.length; i++) {
                     if (pasagerare[i]==persnr2) {
@@ -320,6 +352,18 @@ public class App {
                 System.out.println("Ok, du skickas nu tillbaka");
                 Thread.sleep(500);
             }
+    }
+
+    static void Hitta_alder() throws Exception {
+        for (int i = 1; i < pasagerare.length; i++) {
+            if (pasagerare[i]>=18000000) {
+                Thread.sleep(250);
+                System.out.println("Passagerare på plats "+i+" är över 18");
+            } else if (pasagerare[i]<18000000 && pasagerare[i]>0) {
+                Thread.sleep(250);
+                System.out.println("Passagerare på plats "+i+" är under 18");
+            }
+        }
     }
 
 }
