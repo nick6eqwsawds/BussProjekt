@@ -300,11 +300,26 @@ public class App {
             if (pasagerare[i]==persnr2) {
                 Thread.sleep(750);
                 System.out.println(i+" är din plats");
-                return;
+                //return;
             } 
             }
+            tangentbord.nextLine();
             Thread.sleep(500);
             System.out.println("Vill du: \n1. Avboka \n2. Behålla plats");
+            int avboka = tangentbord.nextInt();
+            if (avboka==1){
+                System.out.println("Ok din plats är nu avbokad");
+                for (int i = 1; i < pasagerare.length; i++) {
+                    if (pasagerare[i]==persnr2) {
+                        pasagerare[i]=0;
+                        return;
+                    } 
+                    }
+            } else {
+                Thread.sleep(500);
+                System.out.println("Ok, du skickas nu tillbaka");
+                Thread.sleep(500);
+            }
     }
 
 }
